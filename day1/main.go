@@ -53,13 +53,9 @@ func partOne(data [][]string) {
 
 func main() {
 	// data := makeData()
-
 	// partOne(data)
 
 	data := strings.Split(strings.TrimRight(INPUT, "\n"), "\n")
-
-	// fubar := []string{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero"}
-	// fmt.Println(fubar)
 
 	fmt.Println(data)
 
@@ -77,13 +73,4 @@ func main() {
 	// row = strings.ReplaceAll(row, "zero", "0")
 	// fmt.Println(row)
 	// }
-
-	// fmt.Println(data)
-
-	// test := "jagHarEn"
-	//
-	// test = strings.ReplaceAll(test, "Har", "BAJS")
-	// test = strings.ReplaceAll(test, "jag", "Du")
-	//
-	// fmt.Println(test)
 }
