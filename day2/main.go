@@ -11,17 +11,17 @@ import (
 var INPUT string
 
 func main() {
-	data := strings.Split(strings.TrimRight(INPUT, "\n"), "\n")
-
 	var sum int
 
-	for _, row := range data {
+	for _, row := range strings.Split(strings.TrimRight(INPUT, "\n"), "\n") {
 		id, _ := strconv.Atoi(strings.TrimLeft(strings.Split(row, ":")[0], "Game "))
 		plays := strings.TrimLeft(strings.Split(row, ":")[1], "Game ")
+
 		if checkPlays(plays) {
 			sum += id
 		}
 	}
+
 	fmt.Println(sum)
 }
 
@@ -41,11 +41,9 @@ func checkEachLine(s []string) bool {
 	for _, row := range s {
 
 		color_of_cube := strings.Split(row, " ")[1]
-		fubar := strings.Split(row, " ")[0]
-		num_of_cube, _ := strconv.Atoi(fubar)
-		if color_of_cube == "red" && num_of_cube <= 12 || color_of_cube == "green" && num_of_cube <= 13 || color_of_cube == "blue" && num_of_cube <= 14 {
-			continue
-		} else {
+		num_of_cube, _ := strconv.Atoi(strings.Split(row, " ")[0])
+
+		if color_of_cube == "red" && num_of_cube > 12 || color_of_cube == "green" && num_of_cube > 13 || color_of_cube == "blue" && num_of_cube > 14 {
 			return false
 		}
 	}
