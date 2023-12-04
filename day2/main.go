@@ -10,11 +10,6 @@ import (
 //go:embed input.txt
 var INPUT string
 
-func makeRow(line string) string {
-	row := strings.TrimLeft(strings.ToLower(strings.Split(line, ":")[1]), " ")
-	return row
-}
-
 func main() {
 	data := strings.Split(strings.TrimRight(INPUT, "\n"), "\n")
 
