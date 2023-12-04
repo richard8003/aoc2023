@@ -7,13 +7,6 @@ import (
 	"strings"
 )
 
-type Game struct {
-	id       string
-	approved bool
-}
-
-type Games [][]Game
-
 //go:embed input.txt
 var INPUT string
 
