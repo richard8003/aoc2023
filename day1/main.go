@@ -3,74 +3,100 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"strconv"
 	"strings"
+	"unicode"
 )
 
 //go:embed input.txt
 var INPUT string
 
-func makeData() [][]string {
-	step_one := strings.Split(strings.TrimRight(INPUT, "\n"), "\n")
-	data := returnOnlyNumbersFromRows(step_one)
-	return data
-}
-
-func returnOnlyNumbersFromRows(rows []string) [][]string {
-	var int_data [][]string
-
-	for _, el := range rows {
-		var line []string
-		for _, x := range strings.Split(el, "") {
-			_, err := strconv.Atoi(x)
-			if err != nil {
-				continue
-			}
-			line = append(line, x)
-		}
-		int_data = append(int_data, line)
-	}
-
-	return int_data
-}
-
-func partOne(data [][]string) {
-	var sum int
-
-	for _, n := range data {
-
-		number_string := n[0] + n[len(n)-1]
-
-		num, err := strconv.Atoi(number_string)
-		if err != nil {
-			fmt.Println("Fubar!!!!")
-		}
-		sum += num
-
-	}
-	fmt.Println(sum)
-}
-
 func main() {
-	// data := makeData()
+	data := parse_input_file()
 	// partOne(data)
+	partTwo(data)
 
-	data := strings.Split(strings.TrimRight(INPUT, "\n"), "\n")
+}
 
-	fmt.Println(data)
+func partTwo(data []string) {
+	numberStrings := []string{
+		"one",
+		"two",
+		"three",
+		"four",
+		"five",
+		"six",
+		"seven",
+		"eight",
+		"nine",
+	}
+	for _, row := range data {
 
-	// for _, row := range data {
-	// fmt.Println(row)
-	// row = strings.ReplaceAll(row, "one", "1")
-	// row = strings.ReplaceAll(row, "two", "2")
-	// row = strings.ReplaceAll(row, "three", "3")
-	// row = strings.ReplaceAll(row, "four", "4")
-	// row = strings.ReplaceAll(row, "five", "5")
-	// row = strings.ReplaceAll(row, "six", "6")
-	// row = strings.ReplaceAll(row, "seven", "7")
-	// row = strings.ReplaceAll(row, "eight", "8")
-	// row = strings.ReplaceAll(row, "nine", "9")
-	// row = strings.ReplaceAll(row, "zero", "0")
-	// fmt.Println(row)
-	// }
+		first_digit := ""
+		last_digit := ""
+
+		for i := 0; i < len(row); i++ {
+			if unicode.IsDigit(rune(row[i])) {
+				if first_digit == "" {
+					first_digit = string(row[i])
+				}
+				last_digit = string(row[i])
+			}
+			for _, nsr := range numberStrings {
+				if strings.HasSuffix(row[:i], nsr) {
+					first_digit = nsr
+				}
+			}
+		}
+
+		test := fmt.Sprintf("%s", first_digit+last_digit)
+		fmt.Println(test)
+	}
+
+}
+
+// func partOne(data []string) {
+//
+// // numberStrings := []string{
+// // "one",
+// // "two",
+// // "three",
+// // "four",
+// // "five",
+// // "six",
+// // "seven",
+// // "eight",
+// // "nine",
+// // }
+// //
+//
+// var rows []int
+//
+// var sum int
+//
+// for _, row := range data {
+//
+// first := ""
+// last := ""
+//
+// for i := 0; i < len(row); i++ {
+// if unicode.IsDigit(rune(row[i])) {
+// // fmt.Println(string(row[i]))
+// if first == "" {
+// first = string(row[i])
+// }
+// last = string(row[i])
+// }
+// }
+//
+// total, _ := strconv.Atoi(fmt.Sprintf("%s", first+last))
+// rows = append(rows, total)
+//
+// sum += total
+// }
+// fmt.Println(rows)
+// fmt.Println(sum)
+// }
+func parse_input_file() []string {
+	result := strings.Split(strings.TrimRight(INPUT, "\n"), "\n")
+	return result
 }
