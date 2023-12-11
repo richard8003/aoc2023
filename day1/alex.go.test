@@ -1,0 +1,64 @@
+string := "two12345"
+prefix := "two"
+            3
+string[0:3] = "two" == prefix
+
+func HasPrefix(s, prefix string) bool {
+    s[0:len(prefix)] == prefix
+    return len(s) >= len(prefix) // && s[0:len(prefix)] == prefix
+}
+
+
+dict := []string{
+    "zero", // 0
+    "one",  // 1
+    "two",  // 2
+}
+
+func checkLine(string string) int {
+    if unicode.isDigit(byte(string[0])) {
+        return string[0]
+    }
+
+    for k, v := range dict {
+        if HasPrefix(string, v) {
+            return k
+        }
+    }
+
+    return -1
+}
+
+
+func getAnswer(input string) int {
+    sum := 0
+    for _, row := range input.Split("\n") {
+        lineLength := len(row)
+
+        first := 0
+        last := 0
+
+        for i := 0; i < lineLength; i++ {
+            // two12345"
+            // wo12345"
+            // o12345"
+            // 12345"
+            // 2345"
+            // 345"
+            // 45"
+            // 5"
+
+            digit := checkLine(row[i:])
+            if digit != -1 {
+
+                if first == 0 {
+                    first = digit
+                }
+
+                last = digit
+            }
+        }
+
+        sum += first + last
+    }
+}
